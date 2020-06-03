@@ -1,0 +1,17 @@
+{
+    "settings": { "number_of_shards": 1 },
+    "mappings": {
+        "properties": {
+            "last_query_date": {
+                "type": "date",
+                "format": "yyyy-MM-dd HH:mm:ss"
+            },
+            "query": {
+                "type": "search_as_you_type"
+            },
+            "count": {
+                "type": "integer"
+            }
+        }
+    }
+}

@@ -1,0 +1,27 @@
+{
+    "size": "{{^size}}5{{/size}}{{size}}",
+    "query": {
+        "function_score": {
+            "query": {
+              "multi_match": {
+                "query": "{{text}}",
+                "type": "bool_prefix",
+                "fields": [
+                  "query",
+                  "query._2gram",
+                  "query._3gram"
+                ]
+              }
+            },
+            "functions": [
+                {
+                    "field_value_factor": {
+                        "field": "count",
+                        "modifier": "ln1p"
+                    }
+                }
+            ],
+            "boost_mode": "multiply"
+        }
+    }
+}
