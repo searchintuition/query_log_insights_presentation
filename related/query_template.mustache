@@ -1,0 +1,16 @@
+{
+    "size": 0,
+    "query": {
+	"terms": {
+	    "document": {{#toJson}}documents{{/toJson}}
+	}
+    },
+    "aggs": {
+      "related_queries": {
+        "terms": {
+          "field": "query",
+          "size": "{{^size}}10{{/size}}{{size}}"
+        }
+      }
+    }
+}

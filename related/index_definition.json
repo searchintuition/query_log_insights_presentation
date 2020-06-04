@@ -1,0 +1,13 @@
+{
+    "settings": { "number_of_shards": 1 },
+    "mappings": {
+        "properties": {
+            "query": {
+                "type": "keyword"
+            },
+            "document": {
+                "type": "keyword"
+            }
+        }
+    }
+}
