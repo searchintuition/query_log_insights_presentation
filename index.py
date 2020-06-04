@@ -39,10 +39,17 @@ def query_template(index=None, template_file=None, template=None, params=None, f
         with open(template_file, 'r') as f:
             template = f.read()
 
-    body = { "source": template, "params": params }
+    escaped_template = template.replace('"', '\"').replace('\n','')
+    body = { "source": escaped_template, "params": params }
     res = es.search_template(index=index, body=body)
-    for hit in res['hits']['hits']:
-        print(hit["_source"][field])
+    #for hit in res['hits']['hits']:
+    #    print(hit["_source"][field])
+    return res
+
+
+def parse_json(json_data, jsonpath=None):
+    jsonpath_expression = parse('employees[*].id')
+    [print(v) for v in jsonpath_expression.find(json.loads(json_data))]
 
 
 def index_mapping(index=None):
@@ -53,4 +60,7 @@ def index_mapping(index=None):
 
 def peek(filename):
     with open(filename, 'r') as f:
-        print(f.read())
+        contents = f.read()
+
+    print(contents)
+    return
