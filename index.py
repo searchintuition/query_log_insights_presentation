@@ -34,7 +34,7 @@ def query_index(index=None, body=None, field=None):
         print(hit["_source"][field])
 
 
-def query_template(index=None, template_file=None, template=None, params=None, field=None):
+def query_template(index=None, template_file=None, template=None, params=None):
     if template_file is not None:
         with open(template_file, 'r') as f:
             template = f.read()
@@ -42,8 +42,6 @@ def query_template(index=None, template_file=None, template=None, params=None, f
     escaped_template = template.replace('"', '\"').replace('\n','')
     body = { "source": escaped_template, "params": params }
     res = es.search_template(index=index, body=body)
-    #for hit in res['hits']['hits']:
-    #    print(hit["_source"][field])
     return res
 
 
