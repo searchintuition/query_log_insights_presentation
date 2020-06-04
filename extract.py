@@ -1,5 +1,4 @@
 import pandas
-import pprint
 import json
 from jsonpath_ng import jsonpath, parse
 
