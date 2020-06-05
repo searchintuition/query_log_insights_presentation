@@ -1,0 +1,59 @@
+{
+    "settings": { 
+        "number_of_shards": 1,
+        "analysis": {
+            "filter": {
+                "canonical": {
+                    "type": "synonym_graph",
+                    "lenient": false,
+                    "synonyms": [
+                        "real estate, realty, property => real_estate",
+                        "new hampshire, nh => new_hampshire",
+                        "new jersey, nj => new_jersey",
+                        "new mexico, nm => new_mexico",
+                        "new york city, nyc => new_york_city",
+                        "new york, ny => new_york",
+                        "north carolina, nc => north_carolina",
+                        "north dakota, nd => north_dakota",
+                        "rhode island, ri => rhode_island",
+                        "south carolina, sc => south_carolina",
+                        "south dakota, sd => south_dakota",
+                        "west virgina, wv => west_virginia"
+                    ]
+                }
+            },
+            "analyzer": {
+                "query_log_analyzer": {
+                    "tokenizer": "whitespace",
+                    "filter": [
+                         "lowercase",
+                         "canonical"
+                     ]
+                }
+            }
+        } 
+    },
+    "mappings": {
+        "properties": {
+            "user": {
+                "type": "keyword"
+            },
+            "query": {
+                "type": "text",
+                "analyzer": "query_log_analyzer",
+                "fields": {
+                    "raw": {
+                        "type": "keyword"
+                    },
+                    "sayt": {
+                        "type": "search_as_you_type",
+                        "analyzer": "query_log_analyzer"
+                    }
+                }
+            },
+            "document": {
+                "type": "keyword"
+            }
+        }
+    }
+}

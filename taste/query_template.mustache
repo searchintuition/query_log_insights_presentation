@@ -1,0 +1,30 @@
+{
+  "size": 0,
+  "query": {
+    "more_like_this" : {
+      "fields" : ["query", "document"],
+      "like" : [
+      {
+        "_index" : "taste",
+        "_id" : "{{user}}"
+      }
+      ],
+      "min_term_freq" : 1, 
+      "max_query_terms" : 8
+    }
+  },
+  "aggs": {
+    "query_recommendations": {
+      "terms": {
+        "field": "query.raw",
+        "size": {{^size}}50{{/size}}{{size}}
+      }
+    },
+    "document_recommendations": {
+      "terms": {
+        "field": "document",
+        "size": {{^size}}50{{/size}}{{size}}
+      }
+    }
+  }
+}

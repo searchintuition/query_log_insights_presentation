@@ -28,6 +28,10 @@ def populate_index(body=None):
     return response
 
 
+def get(id, index=None):
+    return es.get(index=index, id=id)
+
+
 def query_index(index=None, body=None, field=None):
     res = es.search(index=index, body=body)
     for hit in res['hits']['hits']:
