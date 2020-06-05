@@ -1,0 +1,68 @@
+{
+    "size": 0,
+    "query": {
+      "multi_match": {
+        "query": "{{text}}",
+        "type": "phrase",
+        "fields": [
+           "query",
+           "query._2gram",
+           "query._3gram"
+         ],
+         "minimum_should_match": "100%"
+       }
+    },
+    "aggs": {
+      "significant_queries_1": {
+        "significant_text": {
+          "field": "query",
+          "size": "{{^size}}10{{/size}}{{size}}",
+          "background_filter": {
+            "bool": {
+              "must_not": [
+                {
+                  "term": {
+                    "query": "{{text}}"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      },
+      "significant_queries_2": {
+        "significant_text": {
+          "field": "query._2gram",
+          "size": "{{^size}}10{{/size}}{{size}}",
+          "background_filter": {
+            "bool": {
+              "must_not": [
+                {
+                  "term": {
+                    "query._2gram": "{{text}}"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      },
+      "significant_queries_3": {
+        "significant_text": {
+          "field": "query._3gram",
+          "size": "{{^size}}10{{/size}}{{size}}",
+          "background_filter": {
+            "bool": {
+              "must_not": [
+                {
+                  "term": {
+                    "query._3gram": "{{text}}"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+}
